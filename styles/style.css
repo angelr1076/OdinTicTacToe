@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --raleway: 'Raleway', sans-serif;
+  --white: #fff;
+  --black: #000;
+  --charcoal: rgba(90, 83, 83, 0.8);
+  --lightgray: #eee;
+}
+
+html {
+  font-size: 10px;
+  font-family: var(--raleway);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.title {
+  margin-top: 5em;
+  font-weight: bold;
+}
+
+.title>h1 {
+  font-size: 3rem;
+}
+
+.game-board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 0.25em;
+  background-color: var(--lightgray);
+}
+
+.grid-cell {
+  border: 1px solid var(--black);
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.8rem;
+}
+
+.grid-cell:nth-child(-n + 3) {
+  border-top: none;
+}
+
+.grid-cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.grid-cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.grid-cell:nth-last-of-type(-n + 3) {
+  border-bottom: none;
+}
+
+.x::after {
+  content: '❌';
+  font-size: 2.8em;
+}
+
+.o::after {
+  content: '⭕';
+  font-size: 2.8em;
+}
+
+/* cell disabled class */
+.disabled {
+  cursor: not-allowed;
+}
+
+.grid-cell:not(.disabled):hover {
+  background: var(--lightgray);
+}
+
+.game-over {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgb(0 0 0 / 50%) 0 0 0 9999px;
+  z-index: 1;
+}
+
+.game-over-text {
+  position: absolute;
+  top: -200px;
+  font-size: 6rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+  transform: translateX(-30%);
+}
+
+.visible {
+  display: block;
+}
