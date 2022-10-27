@@ -1,30 +1,45 @@
-// Create player factory functions
-const playerFactory = name => {
+// Create a player factory function
+const playerFactory = function (name, playerMarker) {
   const attributes = {
     name,
-    isActive: false,
-    turn: false,
-    isWinner: false,
+    playerMarker,
   };
   const getAttributes = () => attributes;
-  const getName = () => attributes.name;
-  const sayName = () => console.log(`${getName()} has been created}.`);
 
-  return { attributes, getAttributes, getName, sayName };
+  // Return the player index on the board
+  const playTurn = (board, cell) => {
+    const getIndex = board.cells.findIndex(position => position === cell);
+    if (board.boardArray[getIndex] === '') {
+      return getIndex;
+    }
+    return null;
+  };
+
+  return { attributes, getAttributes, playTurn };
 };
 
 // Create a gameBoard object
-const gameModule = (function () {
+const gameBoardModule = (function () {
   // Create a gameBoard array inside of the gameBoard object
-  const game = {
-    xTurn: true, // Sets turns
-    xState: new Array(), // Player 1 moves
-    oState: new Array(), // Player 2 moves
+  let boardArray = ['', '', '', '', '', '', '', '', ''];
+  const gameBoard = document.querySelector('#gameBoard');
+  const cells = Array.from(document.querySelectorAll('[data-cell]'));
+  let winner = null;
+
+  const render = () =>
+    boardArray.forEach(
+      (playerMarker, index) => cells[index].textContent === boardArray[index],
+    );
+
+  const reset = () => (boardArray = ['', '', '', '', '', '', '', '', '']);
+
+  const checkWin = () => {
     // board:
     // [0, 1, 2],
     // [3, 4, 5],
     // [6, 7, 8],
-    winningCombos: [
+    const winningCombos = [
+      // WINNING COMBOS IS NOT DEFINED IN THE CONSOLE
       ['0', '1', '2'],
       ['3', '4', '5'],
       ['6', '7', '8'],
@@ -33,24 +48,23 @@ const gameModule = (function () {
       ['2', '5', '8'],
       ['0', '4', '8'],
       ['2', '4', '6'],
-    ],
+    ];
   };
-  return { game };
+  return { boardArray, gameBoard, cells, winner, render, reset, checkWin };
 })();
 
 // // Create game flow
-const gameFlow = (function () {
-  const gameModuleObj = gameModule.game;
-  const cells = document.querySelectorAll('[data-value]');
-  let classListArray = [];
+const gamePlay = (function () {
+  const turn = () => {};
 
-  cells.forEach(cell => {
-    cell.addEventListener('click', e => {
-      const target = e.target;
-      const isCell = target.classList.contains('grid-cell');
-      const isDisabled = target.classList.contains('disabled');
+  const gameRound = () => {};
 
-      console.log(target);
-    });
-  });
+  const initGame = () => {};
+  return {
+    initGame,
+    gameRound,
+    turn,
+  };
 })();
+
+gamePlay.initGame();
